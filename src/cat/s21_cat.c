@@ -39,11 +39,19 @@ void read(const char *filename, struct CatFlags flags) {
             if (current_char < 32) {
                 putchar('^');
                 putchar(current_char + 64);
-            } else if (current_char == 128);
+            } else if (current_char == 127) {
+                putchar('^');
+                putchar('?');
+            } else {
+                putchar(current_char);
+            }
+        } else {
+            putchar(current_char);
         }
-        putchar(current_char);
         if (current_char == '\n') {
             is_new_line = 1;
+        } else {
+            is_new_line = 0;
         }
     }
     fclose(file);
