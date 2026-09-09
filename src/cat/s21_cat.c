@@ -1,16 +1,4 @@
-#include <getopt.h>
-#include <stdio.h>
-
-struct CatFlags {
-  int b;
-  int e;
-  int n;
-  int s;
-  int t;
-  int v;
-  int E;
-  int T;
-};
+#include "s21_cat.h"
 
 void print_formatted_char(int current_char, struct CatFlags flags) {
   if ((flags.e == 1 || flags.E == 1) && current_char == '\n') putchar('$');
@@ -27,13 +15,12 @@ void print_formatted_char(int current_char, struct CatFlags flags) {
     putchar(current_char);
 }
 
-void read(const char* filename, struct CatFlags flags) {
+void read(const char* filename, struct CatFlags flags, int* cnt) {
   FILE* file = fopen(filename, "r");
   if (file == NULL) {
     fprintf(stderr, "No");
   } else {
     int current_char;
-    int cnt = 1;
     int is_new_line = 1;
     int null_lines_cnt = 0;
     while ((current_char = fgetc(file)) != EOF) {
@@ -47,9 +34,9 @@ void read(const char* filename, struct CatFlags flags) {
       if (need_to_print == 1) {
         if (is_new_line == 1) {
           if (flags.b == 1 && current_char != '\n')
-            printf("%6d\t", cnt++);
+            printf("%6d\t", (*cnt)++);
           else if (flags.n == 1)
-            printf("%6d\t", cnt++);
+            printf("%6d\t", (*cnt)++);
         }
         print_formatted_char(current_char, flags);
       }
@@ -58,8 +45,10 @@ void read(const char* filename, struct CatFlags flags) {
     fclose(file);
   }
 }
+
 int main(int argc, char* argv[]) {
   struct CatFlags flags = {0};
+  int cnt = 1;
   int opt;
   struct option long_options[] = {{"number-nonblank", no_argument, NULL, 'b'},
                                   {"number", no_argument, NULL, 'n'},
@@ -67,42 +56,28 @@ int main(int argc, char* argv[]) {
                                   {NULL, 0, NULL, 0}};
   while ((opt = getopt_long(argc, argv, "benstTvE", long_options, NULL)) !=
          -1) {
-    switch (opt) {
-      case 'b':
-        flags.b = 1;
-        flags.n = 0;
-        break;
-      case 'e':
-        flags.e = 1;
-        flags.v = 1;
-        break;
-      case 'n':
-        if (flags.b == 0) {
-          flags.n = 1;
-        }
-        break;
-      case 's':
-        flags.s = 1;
-        break;
-      case 't':
-        flags.t = 1;
-        flags.v = 1;
-        break;
-      case 'v':
-        flags.v = 1;
-        break;
-      case 'E':
-        flags.E = 1;
-        break;
-      case 'T':
-        flags.T = 1;
-        break;
-      default:
-        break;
-    }
+    if (opt == 'b') {
+      flags.b = 1;
+      flags.n = 0;
+    } else if (opt == 'e') {
+      flags.e = 1;
+      flags.v = 1;
+    } else if (opt == 'n') {
+      if (flags.b == 0) flags.n = 1;
+    } else if (opt == 's')
+      flags.s = 1;
+    else if (opt == 't') {
+      flags.t = 1;
+      flags.v = 1;
+    } else if (opt == 'v')
+      flags.v = 1;
+    else if (opt == 'E')
+      flags.E = 1;
+    else if (opt == 'T')
+      flags.T = 1;
   }
   for (int i = optind; i < argc; i++) {
-    read(argv[i], flags);
+    read(argv[i], flags, &cnt);
   }
   return 0;
 }
