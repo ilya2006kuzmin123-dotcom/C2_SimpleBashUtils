@@ -1,22 +1,4 @@
-#define _GNU_SOURCE
-#include <getopt.h>
-#include <regex.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-struct GrepFlags {
-  int e;
-  int i;
-  int v;
-  int c;
-  int l;
-  int n;
-  int h;
-  int s;
-  int f;
-  int o;
-};
+#include "s21_grep.h"
 
 void print_only_matching(const char* filename, struct GrepFlags flags,
                          int line_cnt, int is_several, regex_t* regex,
@@ -88,11 +70,11 @@ void print_summary(const char* filename, struct GrepFlags flags, int is_several,
 
 void read(const char* filename, struct GrepFlags flags, const char* pattern,
           int is_several_files) {
-  int exit_code = 1;
   FILE* file = fopen(filename, "r");
   if (file == NULL) {
     if (flags.s == 0) fprintf(stderr, "No");
   } else {
+    int exit_code = 1;
     regex_t regex;
     if (flags.f == 0) {
       int cflags = REG_EXTENDED;
@@ -124,8 +106,8 @@ void read(const char* filename, struct GrepFlags flags, const char* pattern,
       free(line);
       if (flags.f == 0) regfree(&regex);
     }
+    fclose(file);
   }
-  fclose(file);
 }
 
 int main(int argc, char* argv[]) {
