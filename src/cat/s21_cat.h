@@ -5,14 +5,14 @@
 #include <stdio.h>
 
 struct CatFlags {
-    int b;
-    int e;
-    int n;
-    int s;
-    int t;
-    int v;
-    int E;
-    int T;
+  int b;
+  int e;
+  int n;
+  int s;
+  int t;
+  int v;
+  int E;
+  int T;
 };
 
 void print_formatted_char(int current_char, struct CatFlags flags);

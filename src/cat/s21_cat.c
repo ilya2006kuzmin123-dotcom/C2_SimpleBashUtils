@@ -1,5 +1,7 @@
 #include "s21_cat.h"
 
+#include "../common/s21_common.h"
+
 void print_formatted_char(int current_char, struct CatFlags flags) {
   if ((flags.e == 1 || flags.E == 1) && current_char == '\n') putchar('$');
   if ((flags.t == 1 || flags.T == 1) && current_char == '\t')
@@ -18,7 +20,7 @@ void print_formatted_char(int current_char, struct CatFlags flags) {
 void read(const char* filename, struct CatFlags flags, int* cnt) {
   FILE* file = fopen(filename, "r");
   if (file == NULL) {
-    fprintf(stderr, "No");
+    s21_print_error("s21_cat", filename);
   } else {
     int current_char;
     int is_new_line = 1;

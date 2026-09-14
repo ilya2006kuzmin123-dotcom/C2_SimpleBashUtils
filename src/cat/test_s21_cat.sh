@@ -35,24 +35,20 @@ run_test() {
 
 echo "=== ЗАПУСК ТЕСТОВ ДЛЯ S21_CAT ==="
 
-run_test "-b $FILE_FLAGS"  # Нумерация только непустых
-run_test "-e $FILE_FLAGS"  # Отображение концов строк ($) + непечатные
-run_test "-n $FILE_FLAGS"  # Нумерация всех строк
-run_test "-s $FILE_FLAGS"  # Сжатие идущих подряд пустых строк
-run_test "-t $FILE_FLAGS"  # Отображение табов как ^I + непечатные
-run_test "-v $FILE_FLAGS"  # Отображение только непечатных
-
+run_test "-b $FILE_FLAGS"
+run_test "-e $FILE_FLAGS"
+run_test "-n $FILE_FLAGS"
+run_test "-s $FILE_FLAGS"
+run_test "-t $FILE_FLAGS"
+run_test "-v $FILE_FLAGS"
 run_test "-E $FILE_FLAGS"
 run_test "-T $FILE_FLAGS"
-
 run_test "--number-nonblank $FILE_FLAGS"
 run_test "--number $FILE_FLAGS"
 run_test "--squeeze-blank $FILE_FLAGS"
-
 run_test "-b -n $FILE_FLAGS"
 run_test "-n -b $FILE_FLAGS"
 run_test "-s -n -e $FILE_FLAGS"
-
 run_test "$FILE_NORMAL $FILE_FLAGS"
 run_test "-n $FILE_NORMAL $FILE_FLAGS"
 
