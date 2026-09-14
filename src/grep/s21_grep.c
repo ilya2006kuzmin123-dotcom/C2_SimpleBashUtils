@@ -1,5 +1,7 @@
 #include "s21_grep.h"
 
+#include "../common/s21_common.h"
+
 void print_only_matching(const char* filename, struct GrepFlags flags,
                          int line_cnt, int is_several, regex_t* regex,
                          char* line) {
@@ -72,7 +74,7 @@ void read(const char* filename, struct GrepFlags flags, const char* pattern,
           int is_several_files) {
   FILE* file = fopen(filename, "r");
   if (file == NULL) {
-    if (flags.s == 0) fprintf(stderr, "No");
+    if (flags.s == 0) s21_print_error("s21_grep", filename);
   } else {
     int exit_code = 1;
     regex_t regex;
