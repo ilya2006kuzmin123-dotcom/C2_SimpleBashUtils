@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -std=c11 -I. -I../common
 TARGET = s21_grep
-SRC = s21_grep.c
+SRC = s21_grep.c main.c
 HEADER = s21_grep.h
 COMMON_SRC = ../common/s21_common.c
 COMMON_HEADER = ../common/s21_common.h
