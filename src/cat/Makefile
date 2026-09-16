@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -std=c11 -I. -I../common
 TARGET = s21_cat
-SRC = s21_cat.c
+SRC = s21_cat.c main.c
 HEADER = s21_cat.h
 COMMON_SRC = ../common/s21_common.c
 COMMON_HEADER = ../common/s21_common.h
