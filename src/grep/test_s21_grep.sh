@@ -52,6 +52,6 @@ run_test "-s 'apple' non_existent_file.txt"
 rm -f res_s21.log res_orig.log $FILE1 $FILE2 $PATTERNS_FILE
 
 echo "=============================="
-echo -e "Всего: $COUNTER | ${GREEN}Успешно: $SUCCESS${RESET} | ${RED}Упало: $FAIL${RESET}"
+echo -e "Всего тестов: $COUNTER | ${GREEN}Успешно: $SUCCESS${RESET} | ${RED}Упало: $FAIL${RESET}"
 
 if [ $FAIL -ne 0 ]; then exit 1; fi
